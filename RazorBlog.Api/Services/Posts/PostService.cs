@@ -7,6 +7,7 @@ using Infrastructure.Contexts;
 using Infrastructure.Domains;
 using Infrastructure.Dtos.Posts;
 using Infrastructure.Extensions;
+using Infrastructure.Extensions.Pages;
 using Microsoft.EntityFrameworkCore;
 
 namespace RazorBlog.Api.Services.Posts
@@ -35,6 +36,15 @@ namespace RazorBlog.Api.Services.Posts
                                        .ToListAsync();
 
             var result = posts.Select(p => p.MapPostResponse());
+
+            return result;
+        }
+
+        public PagedList<PostResponse> PagedPosts(PagingParams pagingParams)
+        {
+            var query = _db.Posts.Select(p => p.MapPostResponse()).AsQueryable();
+                                
+            var result = new PagedList<PostResponse>(query, pagingParams.PageIndex, pagingParams.PageSize);
 
             return result;
         }

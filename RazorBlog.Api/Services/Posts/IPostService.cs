@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Domains;
 using Infrastructure.Dtos.Posts;
+using Infrastructure.Extensions.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace RazorBlog.Api.Services.Posts
     {
         Task CreatePost(Post post);
         Task<IEnumerable<PostResponse>> GetPosts();
+        PagedList<PostResponse> PagedPosts(PagingParams pagingParams);
     }
 }

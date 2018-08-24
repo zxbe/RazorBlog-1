@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Infrastructure.Domains;
 using Infrastructure.Dtos.Posts;
+using Infrastructure.Extensions.Pages;
 using Microsoft.AspNetCore.Mvc;
 using RazorBlog.Api.Services.Posts;
 
@@ -23,6 +24,13 @@ namespace RazorBlog.Api.Controllers
         public async Task<IActionResult> GetPosts()
         {
             var posts = await _postService.GetPosts();
+            return Ok(posts);
+        }
+
+        [HttpGet, Route("paged-post")]
+        public IActionResult PagedPosts(PagingParams pagingParams)
+        {
+            var posts = _postService.PagedPosts(pagingParams);
             return Ok(posts);
         }
 
