@@ -9,10 +9,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RazorBlog.Web.Areas.Identity.Services;
 
 namespace RazorBlog.Web
 {
@@ -38,8 +40,20 @@ namespace RazorBlog.Web
             services.AddDbContext<RazorBlogDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("RazorBlogDbConnection")));
-            services.AddDefaultIdentity<User>()
-                .AddEntityFrameworkStores<RazorBlogDbContext>();
+
+            services.AddDefaultIdentity<User>(config =>
+            {
+                config.SignIn.RequireConfirmedEmail = false;
+                config.User.RequireUniqueEmail = true;
+                config.Password.RequireDigit = false;
+                config.Password.RequiredLength = 6;
+                config.Password.RequireNonAlphanumeric = false;
+                config.Password.RequireUppercase = false;
+                config.Password.RequireLowercase = false;
+            })
+            .AddEntityFrameworkStores<RazorBlogDbContext>();
+
+            services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -59,8 +73,9 @@ namespace RazorBlog.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseAuthentication();
             app.UseCookiePolicy();
+
+            app.UseAuthentication();
 
             app.UseMvc();
         }
