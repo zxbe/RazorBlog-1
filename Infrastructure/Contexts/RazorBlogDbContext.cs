@@ -73,6 +73,10 @@ namespace Infrastructure.Contexts
             builder.Entity<Comment>()
                 .ToTable("Comment")
                 .HasKey(c => c.Id);
+
+            builder.Entity<Category>()
+                .ToTable("Category")
+                .HasKey(c => c.Id);
         }
     }
 }

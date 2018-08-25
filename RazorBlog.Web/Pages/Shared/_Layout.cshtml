@@ -29,24 +29,24 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="#">
+                            About
+                            <span class="sr-only">(current)</span>
+                        </a>
                     </li>
                 </ul>
+                <partial name="_LoginPartial" />
             </div>
         </div>
     </nav>
 
+    <partial name="_CookieConsentPartial" />
+
     <!-- Page Content -->
     <div class="container">
-
-        @RenderBody()
-
+        <div class="my-4">
+            @RenderBody()
+        </div>
     </div>
     <!-- /.container -->
     <!-- Footer -->

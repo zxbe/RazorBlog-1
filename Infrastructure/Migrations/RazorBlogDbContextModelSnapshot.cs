@@ -15,9 +15,28 @@ namespace Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.1.0-rtm-30799")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Infrastructure.Domains.Category", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description");
+
+                    b.Property<bool>("IsApproved");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Slug");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Category");
+                });
 
             modelBuilder.Entity("Infrastructure.Domains.Comment", b =>
                 {
@@ -220,6 +239,8 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long?>("CategoryId");
+
                     b.Property<string>("Content");
 
                     b.Property<long>("CreatedBy");
@@ -239,6 +260,8 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Title");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Post");
                 });
@@ -326,6 +349,13 @@ namespace Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Infrastructure.Domains.Post", b =>
+                {
+                    b.HasOne("Infrastructure.Domains.Category", "Category")
+                        .WithMany("Posts")
+                        .HasForeignKey("CategoryId");
                 });
 
             modelBuilder.Entity("Infrastructure.Domains.PostTag", b =>

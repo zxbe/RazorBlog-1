@@ -18,5 +18,7 @@ namespace Infrastructure.Domains
 
         public ICollection<PostTag> Tags { get; set; } = new List<PostTag>();
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+
+        public Category Category { get; set; } = new Category();
     }
 }
