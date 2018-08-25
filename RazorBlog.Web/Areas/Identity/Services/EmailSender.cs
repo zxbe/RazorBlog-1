@@ -14,10 +14,10 @@ namespace RazorBlog.Web.Areas.Identity.Services
 
         public EmailSender(IConfiguration config)
         {
-            _emailConfig.SmtpServer = config.GetValue<string>("EmailConfig:SmtpServer");
-            _emailConfig.SmtpUsername = config.GetValue<string>("EmailConfig:SmtpUsername");
-            _emailConfig.SmtpPassword = config.GetValue<string>("EmailConfig:SmtpPassword");
-            _emailConfig.SmtpPort = config.GetValue<int>("EmailConfig:SmtpPort");
+            //_emailConfig.SmtpServer = config.GetValue<string>("EmailConfig:SmtpServer");
+            //_emailConfig.SmtpUsername = config.GetValue<string>("EmailConfig:SmtpUsername");
+            //_emailConfig.SmtpPassword = config.GetValue<string>("EmailConfig:SmtpPassword");
+            //_emailConfig.SmtpPort = config.GetValue<int>("EmailConfig:SmtpPort");
         }
 
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
