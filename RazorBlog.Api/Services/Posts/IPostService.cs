@@ -12,7 +12,6 @@ namespace RazorBlog.Api.Services.Posts
     public interface IPostService
     {
         Task CreatePost(Post post);
-        Task<IEnumerable<PostResponse>> GetPosts();
         PagedList<PostResponse> PagedPosts(PagingParams pagingParams);
     }
 }

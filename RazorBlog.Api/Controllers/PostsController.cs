@@ -20,14 +20,7 @@ namespace RazorBlog.Api.Controllers
             _postService = postService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetPosts()
-        {
-            var posts = await _postService.GetPosts();
-            return Ok(posts);
-        }
-
-        [HttpGet, Route("paged-post")]
+        [HttpGet, Route("get-posts")]
         public IActionResult PagedPosts(PagingParams pagingParams)
         {
             var posts = _postService.PagedPosts(pagingParams);

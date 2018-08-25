@@ -30,16 +30,6 @@ namespace RazorBlog.Api.Services.Posts
             }
         }
 
-        public async Task<IEnumerable<PostResponse>> GetPosts()
-        {
-            var posts = await _db.Posts.AsNoTracking()
-                                       .ToListAsync();
-
-            var result = posts.Select(p => p.MapPostResponse());
-
-            return result;
-        }
-
         public PagedList<PostResponse> PagedPosts(PagingParams pagingParams)
         {
             var query = _db.Posts.Select(p => p.MapPostResponse()).AsQueryable();
